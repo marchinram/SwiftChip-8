@@ -8,6 +8,16 @@
 
 import AudioToolbox
 
+public enum BuzzerError: Error {
+    
+    case initError(status: OSStatus)
+    
+    case soundError(status: OSStatus)
+    
+    case stopError(status: OSStatus)
+    
+}
+
 public final class Buzzer {
     
     public enum Frequency: Float {
@@ -23,14 +33,16 @@ public final class Buzzer {
     
     private let frequency: Frequency
     
-    init(frequency: Frequency) {
+    init(frequency: Frequency) throws {
         self.frequency = frequency
         
         var defaultOutputDescription = AudioComponentDescription(componentType: kAudioUnitType_Output, componentSubType: kAudioUnitSubType_RemoteIO, componentManufacturer: kAudioUnitManufacturer_Apple, componentFlags: 0, componentFlagsMask: 0)
         
         let defaultOutput = AudioComponentFindNext(nil, &defaultOutputDescription)
         var error = AudioComponentInstanceNew(defaultOutput!, &component)
-        print(error == 0)
+        if error != noErr {
+            throw BuzzerError.initError(status: error)
+        }
         
         var input = AURenderCallbackStruct()
         input.inputProc = { (inRefCon, _, _, _, inNumberFrames, ioData) -> OSStatus in
@@ -50,7 +62,9 @@ public final class Buzzer {
         }
         input.inputProcRefCon = UnsafeMutableRawPointer(Unmanaged<Buzzer>.passUnretained(self).toOpaque())
         error = AudioUnitSetProperty(component!, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &input, UInt32(MemoryLayout.size(ofValue: input)))
-        print(error == 0)
+        if error != noErr {
+            throw BuzzerError.initError(status: error)
+        }
         
         var asbd = AudioStreamBasicDescription()
         asbd.mSampleRate = Float64(Buzzer.Samples)
@@ -62,37 +76,46 @@ public final class Buzzer {
         asbd.mFramesPerPacket = 1
         asbd.mBytesPerPacket = asbd.mFramesPerPacket * asbd.mBytesPerFrame
         error = AudioUnitSetProperty(component!, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &asbd, UInt32(MemoryLayout<AudioStreamBasicDescription>.size))
-        print(error == 0)
+        if error != noErr {
+            throw BuzzerError.initError(status: error)
+        }
         
         error = AudioUnitInitialize(component!)
-        print(error == 0)
-
+        if error != noErr {
+            throw BuzzerError.initError(status: error)
+        }
     }
     
     deinit {
-        stop()
+        do {
+            try stop()
+        } catch {}
         AudioUnitUninitialize(component!)
         AudioComponentInstanceDispose(component!)
     }
     
-    func sound() {
+    func sound() throws {
         guard isSounding == false else {
             return
         }
         isSounding = true
         
         let error = AudioOutputUnitStart(component!)
-        print(error == 0)
+        if error != noErr {
+            throw BuzzerError.soundError(status: error)
+        }
     }
     
-    func stop() {
+    func stop() throws {
         guard isSounding == true else {
             return
         }
         isSounding = false
         
         let error = AudioOutputUnitStop(component!)
-        print(error == 0)
+        if error != noErr {
+            throw BuzzerError.stopError(status: error)
+        }
     }
     
 }

@@ -12,8 +12,6 @@ import Foundation
 
 public protocol Chip8Delegate {
     
-    func chip8(chip8: Chip8, errorOccured err: Chip8Error)
-    
     func chip8SoundBuzzer(chip8: Chip8)
     
     func chip8StopBuzzer(chip8: Chip8)
@@ -34,9 +32,11 @@ public final class Chip8 {
     
     public static var DisplayHeight = 32
     
+    public static var DefaultSpeed = 12
+    
     public var delegate: Chip8Delegate?
     
-    public var speed: Int = 12
+    public var speed: Int = DefaultSpeed
     
     private var display = [UInt8](repeating: 0, count: (Chip8.DisplayWidth * Chip8.DisplayHeight))
     
@@ -95,11 +95,11 @@ public final class Chip8 {
             let data = try Data(contentsOf: program)
             memory.replaceSubrange(Chip8.MemoryStart..<(Chip8.MemoryStart+data.count), with: data)
         } catch {
-            delegate?.chip8(chip8: self, errorOccured: .invalidROMFile(url: program))
+            throw Chip8Error.invalidROMFile(url: program)
         }
     }
     
-    public func run() {
+    public func run() throws {
         var deltaTime = 1.0 / 60.0
         
         if lastFrameTime == 0 {
@@ -112,7 +112,7 @@ public final class Chip8 {
         
         let catchUpFrames = Int(max(1, round(Float(deltaTime) / Float(1.0 / 60.0))))
         updateTimers(catchUpFrames: catchUpFrames)
-        runOpCodes(catchUpFrames: catchUpFrames)
+        try runOpCodes(catchUpFrames: catchUpFrames)
     }
     
     public func press(button: Int) {
@@ -144,14 +144,14 @@ public final class Chip8 {
         }
     }
     
-    private func runOpCodes(catchUpFrames: Int) {
+    private func runOpCodes(catchUpFrames: Int) throws {
         for _ in 0..<speed * catchUpFrames {
             if !isHalted {
                 do {
                     try runOpCode()
                 } catch {
                     isHalted = true
-                    delegate?.chip8(chip8: self, errorOccured: error as! Chip8Error)
+                    throw error
                 }
             }
         }

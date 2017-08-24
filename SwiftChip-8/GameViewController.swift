@@ -14,9 +14,9 @@ class GameViewController: UIViewController {
     
     var game: URL!
     
-    fileprivate var interpreter: Chip8!
+    fileprivate var interpreter: Chip8?
     
-    fileprivate var buzzer = Buzzer(frequency: .A4)
+    fileprivate var buzzer: Buzzer?
     
     private var displayLink: CADisplayLink?
     
@@ -38,6 +38,7 @@ class GameViewController: UIViewController {
         title = game.lastPathComponent
         setupKeyboard()
         setupChip8()
+        setupBuzzer()
         setupSpeedSlider()
         setupGL()
     }
@@ -61,20 +62,24 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func didPressButton(_ sender: UIButton) {
-        interpreter.press(button: sender.tag)
+        interpreter?.press(button: sender.tag)
     }
     
     @IBAction func didReleaseButton(_ sender: UIButton) {
-        interpreter.release(button: sender.tag)
+        interpreter?.release(button: sender.tag)
     }
     
     @objc private func redraw(displayLink: CADisplayLink) {
-        interpreter.run()
+        do {
+            try interpreter?.run()
+        } catch {
+            alert(error: error)
+        }
         gameView.display()
     }
     
     @objc private func adjustSpeed(sender: UISlider) {
-        interpreter.speed = Int(sender.value)
+        interpreter?.speed = Int(sender.value)
     }
     
     private func setupKeyboard() {
@@ -106,8 +111,20 @@ class GameViewController: UIViewController {
     }
     
     private func setupChip8() {
-        interpreter = try! Chip8(program: game)
-        interpreter.delegate = self
+        do {
+            interpreter = try Chip8(program: game)
+        } catch {
+            alert(error: error)
+        }
+        interpreter?.delegate = self
+    }
+    
+    private func setupBuzzer() {
+        do {
+            buzzer = try Buzzer(frequency: .A4)
+        } catch {
+            alert(error: error)
+        }
     }
     
     private func setupSpeedSlider() {
@@ -115,7 +132,7 @@ class GameViewController: UIViewController {
         speedSlider.translatesAutoresizingMaskIntoConstraints = false
         speedSlider.minimumValue = 1
         speedSlider.maximumValue = 30
-        speedSlider.value = Float(interpreter.speed)
+        speedSlider.value = Float(Chip8.DefaultSpeed)
         speedSlider.addTarget(self, action: #selector(adjustSpeed(sender:)), for: .valueChanged)
         let speedItem = UIBarButtonItem(customView: speedSlider)
         toolbarItems?.append(speedItem)
@@ -148,23 +165,46 @@ class GameViewController: UIViewController {
         gameView.context = context
     }
     
+    fileprivate func alert(error: Error) {
+        var message = ""
+        switch error {
+        case Chip8Error.invalidOpCode(let opCode):
+            message = "Invalid op code: \(opCode)"
+        case Chip8Error.invalidROMFile(let url):
+            message = "Invalid ROM file: \(url)"
+        case BuzzerError.initError(let status):
+            message = "Buzzer error: \(status)"
+        case BuzzerError.soundError(let status):
+            message = "Buzzer error: \(status)"
+        case BuzzerError.stopError(let status):
+            message = "Buzzer error: \(status)"
+        default:
+            message = "Other error occured: \(error.localizedDescription)"
+        }
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 extension GameViewController: Chip8Delegate {
     
-    func chip8(chip8: Chip8, errorOccured err: Chip8Error) {
-        switch err {
-        default:
-            print(err)
+    func chip8SoundBuzzer(chip8: Chip8) {
+        do {
+            try buzzer?.sound()
+        } catch {
+            alert(error: error)
         }
     }
     
-    func chip8SoundBuzzer(chip8: Chip8) {
-        buzzer.sound()
-    }
-    
     func chip8StopBuzzer(chip8: Chip8) {
-        buzzer.stop()
+        do {
+            try buzzer?.stop()
+        } catch {
+            alert(error: error)
+        }
     }
     
 }
@@ -177,7 +217,7 @@ extension GameViewController: GLKViewDelegate {
         
         for y in 0..<Chip8.DisplayHeight {
             for x in 0..<Chip8.DisplayWidth {
-                guard interpreter[x, y] else {
+                guard let interpreter = interpreter, interpreter[x, y] else {
                     continue
                 }
                 var transform = GLKMatrix4MakeTranslation(0.0, Float(Chip8.DisplayHeight), 0.0)
