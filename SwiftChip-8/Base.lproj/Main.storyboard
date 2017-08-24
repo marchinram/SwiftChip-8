@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4uL-cX-yNc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="fiZ-lx-hpp">
+            <objects>
+                <navigationController toolbarHidden="NO" id="4uL-cX-yNc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XJd-fq-hqh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="j6e-Hs-d3r">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="HsD-IO-FRm" kind="relationship" relationship="rootViewController" id="a8E-5y-lmn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fFR-y9-On7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-399" y="192"/>
+        </scene>
+        <!--Choose a game:-->
+        <scene sceneID="7YF-xE-acB">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HsD-IO-FRm" customClass="MainViewController" customModule="SwiftChip_8" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aTP-2i-4Pf"/>
+                        <viewControllerLayoutGuide type="bottom" id="kq0-Pp-XzS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iWB-2R-lT1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="7ez-AQ-rPp">
+                                <rect key="frame" x="0.0" y="94" width="375" height="529"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GameCell" textLabel="oa2-CV-FXt" style="IBUITableViewCellStyleDefault" id="tYx-Hf-bBa">
+                                        <rect key="frame" x="0.0" y="1" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tYx-Hf-bBa" id="aC1-lD-LZg">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oa2-CV-FXt">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="HsD-IO-FRm" id="Odz-ct-9sv"/>
+                                    <outlet property="delegate" destination="HsD-IO-FRm" id="cZT-yF-wWS"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kq0-Pp-XzS" firstAttribute="top" secondItem="7ez-AQ-rPp" secondAttribute="bottom" id="Obk-Ud-1V3"/>
+                            <constraint firstAttribute="trailing" secondItem="7ez-AQ-rPp" secondAttribute="trailing" id="cTX-kg-vj9"/>
+                            <constraint firstItem="7ez-AQ-rPp" firstAttribute="leading" secondItem="iWB-2R-lT1" secondAttribute="leading" id="g57-Cc-Qb3"/>
+                            <constraint firstItem="7ez-AQ-rPp" firstAttribute="top" secondItem="aTP-2i-4Pf" secondAttribute="bottom" id="lfa-9N-jIH"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="BPp-4S-EXd"/>
+                        <barButtonItem title="Settings" id="Ycv-6g-QI0"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Choose a game:" prompt="SwiftChip-8" id="bmS-EK-mx7"/>
+                    <connections>
+                        <outlet property="gamesTableView" destination="7ez-AQ-rPp" id="Nbt-ch-hpI"/>
+                        <segue destination="zqd-y4-Myi" kind="show" identifier="GameSegue" id="54Y-dv-yDf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FK5-UY-ld8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="360.80000000000001" y="190.25487256371815"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="RXL-GX-byz">
+            <objects>
+                <viewController id="zqd-y4-Myi" customClass="GameViewController" customModule="SwiftChip_8" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CTb-eC-HR0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ird-m4-LAJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TgI-vq-EoG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbI-cQ-qjM" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="225.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-H4-fpH" userLabel="Shadow View">
+                                        <rect key="frame" x="15" y="26" width="345" height="172.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="M3l-H4-fpH" secondAttribute="height" multiplier="2:1" id="rCG-d4-oEn"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                <size key="value" width="0.0" height="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="MJI-RD-waV">
+                                        <rect key="frame" x="15" y="26.5" width="345" height="172.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="MJI-RD-waV" secondAttribute="height" multiplier="2:1" id="Jqg-0j-Qm8"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="zqd-y4-Myi" id="78O-UK-eaF"/>
+                                        </connections>
+                                    </glkView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="MJI-RD-waV" firstAttribute="centerY" secondItem="IbI-cQ-qjM" secondAttribute="centerY" id="Ege-vA-hyK"/>
+                                    <constraint firstItem="M3l-H4-fpH" firstAttribute="leading" secondItem="IbI-cQ-qjM" secondAttribute="leading" constant="15" id="Fhq-2D-LuK"/>
+                                    <constraint firstItem="M3l-H4-fpH" firstAttribute="centerX" secondItem="IbI-cQ-qjM" secondAttribute="centerX" id="e87-wE-TZp"/>
+                                    <constraint firstItem="MJI-RD-waV" firstAttribute="centerX" secondItem="IbI-cQ-qjM" secondAttribute="centerX" id="his-ql-KHQ"/>
+                                    <constraint firstItem="M3l-H4-fpH" firstAttribute="centerY" secondItem="IbI-cQ-qjM" secondAttribute="centerY" id="w7E-Gs-IwZ"/>
+                                    <constraint firstItem="MJI-RD-waV" firstAttribute="leading" secondItem="IbI-cQ-qjM" secondAttribute="leading" constant="15" id="ycv-YI-TTg"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ohI-y4-WnH">
+                                <rect key="frame" x="0.0" y="289.5" width="375" height="333.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dg6-oW-xPp">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="83.5"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N92-UI-auu">
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="edw-Br-FLl"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="BRb-So-ZMT"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="Bjr-bF-rL7"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="KzT-7W-0ly"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fi-Ko-hNC">
+                                                <rect key="frame" x="94" y="0.0" width="93.5" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="4um-LG-p6A"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="UJU-KX-qXe"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="cOD-vH-Vok"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="oFK-jJ-2mp"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joA-vU-Qxb">
+                                                <rect key="frame" x="187.5" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="RIP-64-gml"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="PEf-Yd-B9v"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="d3c-dh-oDY"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="elE-sI-kAM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DE-Ob-Ffa">
+                                                <rect key="frame" x="281.5" y="0.0" width="93.5" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="izY-c5-vkz"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="Kbl-ot-xFo"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="LHh-eX-5M6"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="Rds-D5-0iO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-Lf-WlB">
+                                        <rect key="frame" x="0.0" y="83.5" width="375" height="83.5"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ha-y7-q9L">
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="F9T-QH-oIi"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="ht1-io-JjQ"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="k3N-NW-Trm"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="m71-zl-7aW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJ5-sS-r3d">
+                                                <rect key="frame" x="94" y="0.0" width="93.5" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="bx1-Yc-fnz"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="QmC-Mw-MqZ"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="SWZ-kW-lX3"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="WRJ-gD-SpD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gp2-oN-a4c">
+                                                <rect key="frame" x="187.5" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="GUq-OW-yi0"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="KSf-aX-Lof"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="LyX-J7-wJs"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="ePB-2S-o38"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKK-JP-EAc">
+                                                <rect key="frame" x="281.5" y="0.0" width="93.5" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="UMP-5g-fiq"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="10d-8a-2k3"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="eXq-3I-JaX"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="eeg-q3-Kq6"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0az-XM-xrO">
+                                        <rect key="frame" x="0.0" y="167" width="375" height="83"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hea-dJ-tQ4">
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="83"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="iSf-R5-Xqy"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="AoZ-sO-dZP"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="KMr-x3-jI1"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="ivs-iL-MeQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCD-7v-h9T">
+                                                <rect key="frame" x="94" y="0.0" width="93.5" height="83"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="T8z-KA-Evv"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="Sfn-dX-c5a"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="trS-kg-GgT"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="wbZ-lk-4aA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRl-SG-5fK">
+                                                <rect key="frame" x="187.5" y="0.0" width="94" height="83"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="VmR-Uc-x9u"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="2Na-rY-6zG"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="3eY-O9-mCu"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="RBq-aL-ST6"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1AG-ig-Z6J">
+                                                <rect key="frame" x="281.5" y="0.0" width="93.5" height="83"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="ABU-ue-YYB"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="F6g-wF-ilx"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="IlY-Eo-p2E"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="WNY-mw-H7w"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XWK-Z6-Seb">
+                                        <rect key="frame" x="0.0" y="250" width="375" height="83.5"/>
+                                        <subviews>
+                                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwa-Zu-2iW">
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="IHE-Op-mrR"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="0G3-Kf-tjc"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="YRp-ZX-H93"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="ngy-06-bzI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tde-l6-MPF">
+                                                <rect key="frame" x="94" y="0.0" width="93.5" height="83.5"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="AmO-8n-1q1"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="0HK-rz-J38"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="uJq-OA-apz"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="zFf-1U-IfO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlN-km-oMB">
+                                                <rect key="frame" x="187.5" y="0.0" width="94" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="l4A-cD-RyS"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="GKN-eM-Ym7"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="H4s-wa-kKD"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="lHY-AX-QKv"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-7g-kSD">
+                                                <rect key="frame" x="281.5" y="0.0" width="93.5" height="83.5"/>
+                                                <connections>
+                                                    <action selector="didPressButton:" destination="zqd-y4-Myi" eventType="touchDown" id="MD7-ct-jIC"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpOutside" id="HLg-qg-9II"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchCancel" id="HTw-kR-Qfi"/>
+                                                    <action selector="didReleaseButton:" destination="zqd-y4-Myi" eventType="touchUpInside" id="s6m-ic-sgJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ohI-y4-WnH" firstAttribute="leading" secondItem="TgI-vq-EoG" secondAttribute="leading" id="3xi-uI-pKg"/>
+                            <constraint firstItem="ohI-y4-WnH" firstAttribute="top" secondItem="IbI-cQ-qjM" secondAttribute="bottom" id="5Gi-IU-MoN"/>
+                            <constraint firstItem="IbI-cQ-qjM" firstAttribute="top" secondItem="CTb-eC-HR0" secondAttribute="bottom" id="MhP-Rh-e6l"/>
+                            <constraint firstAttribute="trailing" secondItem="IbI-cQ-qjM" secondAttribute="trailing" id="UZn-vk-DBc"/>
+                            <constraint firstItem="ohI-y4-WnH" firstAttribute="height" secondItem="TgI-vq-EoG" secondAttribute="height" multiplier="1/2" id="aMf-nz-gWM"/>
+                            <constraint firstAttribute="trailing" secondItem="ohI-y4-WnH" secondAttribute="trailing" id="b6q-dA-3CG"/>
+                            <constraint firstItem="Ird-m4-LAJ" firstAttribute="top" secondItem="ohI-y4-WnH" secondAttribute="bottom" id="pJc-2e-8Nf"/>
+                            <constraint firstItem="IbI-cQ-qjM" firstAttribute="leading" secondItem="TgI-vq-EoG" secondAttribute="leading" id="pmL-Qh-7kY"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem enabled="NO" title="Cycles/Frame:    " id="Zhi-m0-usX">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="t5z-ji-J0d"/>
+                    <connections>
+                        <outlet property="gameView" destination="MJI-RD-waV" id="H6s-ed-n19"/>
+                        <outletCollection property="buttons" destination="N92-UI-auu" collectionClass="NSMutableArray" id="BvW-Vz-QBV"/>
+                        <outletCollection property="buttons" destination="0Fi-Ko-hNC" collectionClass="NSMutableArray" id="Pps-8D-UTL"/>
+                        <outletCollection property="buttons" destination="joA-vU-Qxb" collectionClass="NSMutableArray" id="rh4-AZ-ECv"/>
+                        <outletCollection property="buttons" destination="4DE-Ob-Ffa" collectionClass="NSMutableArray" id="wdF-MA-Q1Y"/>
+                        <outletCollection property="buttons" destination="8Ha-y7-q9L" collectionClass="NSMutableArray" id="hoV-NS-lAa"/>
+                        <outletCollection property="buttons" destination="lJ5-sS-r3d" collectionClass="NSMutableArray" id="EMt-sl-3PO"/>
+                        <outletCollection property="buttons" destination="gp2-oN-a4c" collectionClass="NSMutableArray" id="2qW-UZ-7lG"/>
+                        <outletCollection property="buttons" destination="YKK-JP-EAc" collectionClass="NSMutableArray" id="dck-gB-8Mx"/>
+                        <outletCollection property="buttons" destination="Hea-dJ-tQ4" collectionClass="NSMutableArray" id="qy2-q2-Zc1"/>
+                        <outletCollection property="buttons" destination="cCD-7v-h9T" collectionClass="NSMutableArray" id="WdX-kZ-rGd"/>
+                        <outletCollection property="buttons" destination="CRl-SG-5fK" collectionClass="NSMutableArray" id="sE9-7V-rfJ"/>
+                        <outletCollection property="buttons" destination="1AG-ig-Z6J" collectionClass="NSMutableArray" id="bYV-rn-zXT"/>
+                        <outletCollection property="buttons" destination="gwa-Zu-2iW" collectionClass="NSMutableArray" id="W2u-4w-BxJ"/>
+                        <outletCollection property="buttons" destination="Tde-l6-MPF" collectionClass="NSMutableArray" id="ltL-sj-ZP0"/>
+                        <outletCollection property="buttons" destination="wlN-km-oMB" collectionClass="NSMutableArray" id="qEi-4L-4Iv"/>
+                        <outletCollection property="buttons" destination="gby-7g-kSD" collectionClass="NSMutableArray" id="fAE-Ls-BqN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zvL-Te-oCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1124" y="190"/>
+        </scene>
+    </scenes>
+</document>
