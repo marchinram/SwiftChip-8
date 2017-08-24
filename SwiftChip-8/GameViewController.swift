@@ -105,8 +105,8 @@ class GameViewController: UIViewController {
         for (index, button) in buttons.enumerated() {
             let image = UIImage(named: String(format: "%X", keymap[index]!))?.withRenderingMode(.alwaysTemplate)
             button.setImage(image, for: .normal)
-            button.tintColor = UIColor(colorLiteralRed: 1.0, green: 196.0/255.0, blue: 0.0, alpha: 1.0)
-            button.backgroundColor = UIColor(colorLiteralRed: 176.0/255.0, green: 74.0/255.0, blue: 0.0, alpha: 1.0)
+            button.tintColor = SettingsManager.instance.pixelColor
+            button.backgroundColor = SettingsManager.instance.backgroundColor
         }
     }
     
@@ -121,7 +121,7 @@ class GameViewController: UIViewController {
     
     private func setupBuzzer() {
         do {
-            buzzer = try Buzzer(frequency: .A4)
+            buzzer = try Buzzer(frequency: SettingsManager.instance.buzzerNote)
         } catch {
             alert(error: error)
         }
@@ -144,7 +144,7 @@ class GameViewController: UIViewController {
         
         colorEffect.transform.projectionMatrix = GLKMatrix4MakeOrtho(0.0, Float(Chip8.DisplayWidth), 0.0, Float(Chip8.DisplayHeight), -1.0, 1.0)
         colorEffect.useConstantColor = GLboolean(GL_TRUE)
-        colorEffect.constantColor = GLKVector4Make(1.0, 196.0/255.0, 0.0, 1.0)
+        colorEffect.constantColor = SettingsManager.instance.pixelColor.glkVector4
         
         let vertices: [Float32] = [
             -0.5, -0.5,
@@ -212,7 +212,8 @@ extension GameViewController: Chip8Delegate {
 extension GameViewController: GLKViewDelegate {
     
     func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        glClearColor(176.0/255.0, 74.0/255.0, 0.0, 1.0)
+        let bgColor = SettingsManager.instance.backgroundColor.floatTuple
+        glClearColor(bgColor.0, bgColor.1, bgColor.2, bgColor.3)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
         for y in 0..<Chip8.DisplayHeight {

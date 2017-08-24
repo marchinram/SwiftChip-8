@@ -20,9 +20,48 @@ public enum BuzzerError: Error {
 
 public final class Buzzer {
     
-    public enum Frequency: Float {
-        case C4 = 261.63
-        case A4 = 440.00
+    public enum Frequency: Float, CustomStringConvertible {
+        case C4     = 261.63
+        case Db4    = 277.18
+        case D4     = 293.66
+        case Eb4    = 311.13
+        case E4     = 329.63
+        case F4     = 349.23
+        case Gb4    = 369.99
+        case G4     = 392.00
+        case Ab4    = 415.30
+        case A4     = 440.00
+        case Bb4    = 466.16
+        case B4     = 493.88
+        
+        public var description: String {
+            switch self {
+            case .C4:
+                return "C4"
+            case .Db4:
+                return "C♯4/D♭4"
+            case .D4:
+                return "D4"
+            case .Eb4:
+                return "D♯4/E♭4"
+            case .E4:
+                return "E4"
+            case .F4:
+                return "F4"
+            case .Gb4:
+                return "F♯4/G♭4"
+            case .G4:
+                return "G4"
+            case .Ab4:
+                return "G♯4/A♭4"
+            case .A4:
+                return "A4"
+            case .Bb4:
+                return "A♯4/B♭4"
+            case .B4:
+                return "B4"
+            }
+        }
     }
     
     private static let Samples = 44100

@@ -16,6 +16,8 @@
 		783363471F3F9EBF009D8FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 783363461F3F9EBF009D8FAA /* Assets.xcassets */; };
 		7833634A1F3F9EBF009D8FAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 783363481F3F9EBF009D8FAA /* LaunchScreen.storyboard */; };
 		783363521F3FA219009D8FAA /* Chip8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783363511F3FA219009D8FAA /* Chip8.swift */; };
+		785CCC191F4F6F4F000DB914 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785CCC181F4F6F4F000DB914 /* SettingsViewController.swift */; };
+		785CCC1B1F4F719A000DB914 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785CCC1A1F4F719A000DB914 /* SettingsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		783363491F3F9EBF009D8FAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7833634B1F3F9EBF009D8FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		783363511F3FA219009D8FAA /* Chip8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chip8.swift; sourceTree = "<group>"; };
+		785CCC181F4F6F4F000DB914 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		785CCC1A1F4F719A000DB914 /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,12 +69,14 @@
 				7833633F1F3F9EBF009D8FAA /* AppDelegate.swift */,
 				783363411F3F9EBF009D8FAA /* MainViewController.swift */,
 				78320B6E1F3FB50400834159 /* GameViewController.swift */,
+				785CCC181F4F6F4F000DB914 /* SettingsViewController.swift */,
+				783363511F3FA219009D8FAA /* Chip8.swift */,
+				7827AC081F4F25A700B00402 /* Buzzer.swift */,
+				785CCC1A1F4F719A000DB914 /* SettingsManager.swift */,
 				783363431F3F9EBF009D8FAA /* Main.storyboard */,
 				783363461F3F9EBF009D8FAA /* Assets.xcassets */,
 				783363481F3F9EBF009D8FAA /* LaunchScreen.storyboard */,
 				7833634B1F3F9EBF009D8FAA /* Info.plist */,
-				783363511F3FA219009D8FAA /* Chip8.swift */,
-				7827AC081F4F25A700B00402 /* Buzzer.swift */,
 				78320B701F3FB5B500834159 /* Games */,
 			);
 			path = "SwiftChip-8";
@@ -153,8 +159,10 @@
 				78320B6F1F3FB50400834159 /* GameViewController.swift in Sources */,
 				7827AC091F4F25A700B00402 /* Buzzer.swift in Sources */,
 				783363421F3F9EBF009D8FAA /* MainViewController.swift in Sources */,
+				785CCC1B1F4F719A000DB914 /* SettingsManager.swift in Sources */,
 				783363521F3FA219009D8FAA /* Chip8.swift in Sources */,
 				783363401F3F9EBF009D8FAA /* AppDelegate.swift in Sources */,
+				785CCC191F4F6F4F000DB914 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

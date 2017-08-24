@@ -226,7 +226,7 @@ public final class Chip8 {
                 let diff = V[y] - V[x]
                 V[0xF] = diff >= 0 ? 1 : 0
                 V[x] = diff & 0xFF
-            case 0x0008:
+            case 0x000E:
                 V[0xF] = (V[x] >> 7) & 0x01
                 V[x] <<= 1
             default:
