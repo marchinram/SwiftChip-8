@@ -10,11 +10,7 @@ import AudioToolbox
 
 public enum BuzzerError: Error {
     
-    case initError(status: OSStatus)
-    
-    case soundError(status: OSStatus)
-    
-    case stopError(status: OSStatus)
+    case error(status: OSStatus)
     
 }
 
@@ -72,6 +68,8 @@ public final class Buzzer {
     
     private let frequency: Frequency
     
+    private var startingFrameCount: Float = 0.0
+    
     init(frequency: Frequency) throws {
         self.frequency = frequency
         
@@ -80,7 +78,7 @@ public final class Buzzer {
         let defaultOutput = AudioComponentFindNext(nil, &defaultOutputDescription)
         var error = AudioComponentInstanceNew(defaultOutput!, &component)
         if error != noErr {
-            throw BuzzerError.initError(status: error)
+            throw BuzzerError.error(status: error)
         }
         
         var input = AURenderCallbackStruct()
@@ -88,40 +86,47 @@ public final class Buzzer {
             let buzzer = Unmanaged<Buzzer>.fromOpaque(inRefCon).takeUnretainedValue()
             
             let rawData = ioData?.pointee.mBuffers.mData
-            let mutableData = rawData?.bindMemory(to: Int16.self, capacity: Int(inNumberFrames))
-            let buffer = UnsafeMutableBufferPointer(start: mutableData, count: Int(inNumberFrames))
-            
-            let wavelengthInSamples = Float(Buzzer.Samples) / buzzer.frequency.rawValue
-            
-            for frame in 0..<inNumberFrames {
-                let sample = Int16(Float(Int16.max) * sin(2 * Float.pi * (Float(frame) / wavelengthInSamples))).bigEndian
-                buffer[Int(frame)] = sample
+            let mutableData = rawData?.bindMemory(to: Float32.self, capacity: Int(inNumberFrames))
+            let data = UnsafeMutableBufferPointer(start: mutableData, count: Int(inNumberFrames))
+
+            var j = buzzer.startingFrameCount
+            let cycleLength = Float(Buzzer.Samples) / buzzer.frequency.rawValue
+            for frame in 0..<Int(inNumberFrames) {
+                let value = sin(2.0 * Float.pi * (j / cycleLength))
+                data[frame] = value
+                
+                j += 1.0
+                if j > cycleLength {
+                    j -= cycleLength
+                }
             }
-            return 0
+            
+            buzzer.startingFrameCount = j
+            return noErr
         }
         input.inputProcRefCon = UnsafeMutableRawPointer(Unmanaged<Buzzer>.passUnretained(self).toOpaque())
         error = AudioUnitSetProperty(component!, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &input, UInt32(MemoryLayout.size(ofValue: input)))
         if error != noErr {
-            throw BuzzerError.initError(status: error)
+            throw BuzzerError.error(status: error)
         }
         
         var asbd = AudioStreamBasicDescription()
         asbd.mSampleRate = Float64(Buzzer.Samples)
         asbd.mFormatID = kAudioFormatLinearPCM
-        asbd.mFormatFlags = kLinearPCMFormatFlagIsBigEndian | kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked
-        asbd.mBitsPerChannel = 16
+        asbd.mFormatFlags =  kLinearPCMFormatFlagIsFloat | kLinearPCMFormatFlagIsPacked
+        asbd.mBitsPerChannel = 32
         asbd.mChannelsPerFrame = 1
-        asbd.mBytesPerFrame = asbd.mChannelsPerFrame * 2
+        asbd.mBytesPerFrame = asbd.mChannelsPerFrame * 4
         asbd.mFramesPerPacket = 1
         asbd.mBytesPerPacket = asbd.mFramesPerPacket * asbd.mBytesPerFrame
         error = AudioUnitSetProperty(component!, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &asbd, UInt32(MemoryLayout<AudioStreamBasicDescription>.size))
         if error != noErr {
-            throw BuzzerError.initError(status: error)
+            throw BuzzerError.error(status: error)
         }
         
         error = AudioUnitInitialize(component!)
         if error != noErr {
-            throw BuzzerError.initError(status: error)
+            throw BuzzerError.error(status: error)
         }
     }
     
@@ -141,7 +146,7 @@ public final class Buzzer {
         
         let error = AudioOutputUnitStart(component!)
         if error != noErr {
-            throw BuzzerError.soundError(status: error)
+            throw BuzzerError.error(status: error)
         }
     }
     
@@ -153,7 +158,7 @@ public final class Buzzer {
         
         let error = AudioOutputUnitStop(component!)
         if error != noErr {
-            throw BuzzerError.stopError(status: error)
+            throw BuzzerError.error(status: error)
         }
     }
     

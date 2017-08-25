@@ -172,11 +172,7 @@ class GameViewController: UIViewController {
             message = "Invalid op code: \(opCode)"
         case Chip8Error.invalidROMFile(let url):
             message = "Invalid ROM file: \(url)"
-        case BuzzerError.initError(let status):
-            message = "Buzzer error: \(status)"
-        case BuzzerError.soundError(let status):
-            message = "Buzzer error: \(status)"
-        case BuzzerError.stopError(let status):
+        case BuzzerError.error(let status):
             message = "Buzzer error: \(status)"
         default:
             message = "Other error occured: \(error.localizedDescription)"
