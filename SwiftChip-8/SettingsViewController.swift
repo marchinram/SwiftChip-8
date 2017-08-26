@@ -106,6 +106,7 @@ class SettingsViewController: UITableViewController {
         do {
             buzzerPreviewLabel.text = "Stop Preview"
             buzzer = try Buzzer(frequency: SettingsManager.instance.buzzerNote)
+            buzzer?.volume = SettingsManager.instance.buzzerVolume
             try buzzer?.sound()
         } catch {
             print(error)
