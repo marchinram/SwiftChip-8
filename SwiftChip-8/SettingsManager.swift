@@ -23,7 +23,6 @@ class SettingsManager {
         var bgRGBA = [CGFloat](repeating: 0.0, count: 4)
         SettingsManager.orangeBackgroundColor.getRed(&bgRGBA[0], green: &bgRGBA[1], blue: &bgRGBA[2], alpha: &bgRGBA[3])
         UserDefaults.standard.register(defaults:[
-            "buzzerNote": Buzzer.Frequency.C4.rawValue,
             "pixelColorR": pixelRGBA[0],
             "pixelColorG": pixelRGBA[1],
             "pixelColorB": pixelRGBA[2],
@@ -31,7 +30,9 @@ class SettingsManager {
             "backgroundColorR": bgRGBA[0],
             "backgroundColorG": bgRGBA[1],
             "backgroundColorB": bgRGBA[2],
-            "backgroundColorA": bgRGBA[3]
+            "backgroundColorA": bgRGBA[3],
+            "buzzerNote": Buzzer.Frequency.C4.rawValue,
+            "buzzerVolume": 1.0
         ])
     }
     
@@ -78,6 +79,15 @@ class SettingsManager {
         }
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "buzzerNote")
+        }
+    }
+    
+    public var buzzerVolume: Float {
+        get {
+            return UserDefaults.standard.float(forKey: "buzzerVolume")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "buzzerVolume")
         }
     }
     

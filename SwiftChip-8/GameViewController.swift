@@ -125,6 +125,7 @@ class GameViewController: UIViewController {
         } catch {
             alert(error: error)
         }
+        buzzer?.volume = SettingsManager.instance.buzzerVolume
     }
     
     private func setupSpeedSlider() {

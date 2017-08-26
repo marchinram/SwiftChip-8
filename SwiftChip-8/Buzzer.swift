@@ -17,6 +17,18 @@ public enum BuzzerError: Error {
 public final class Buzzer {
     
     public enum Frequency: Float, CustomStringConvertible {
+        case C3     = 130.81
+        case Db3    = 138.59
+        case D3     = 146.83
+        case Eb3    = 155.56
+        case E3     = 164.81
+        case F3     = 174.61
+        case Gb3    = 185.00
+        case G3     = 196.00
+        case Ab3    = 207.65
+        case A3     = 220.00
+        case Bb3    = 233.08
+        case B3     = 246.94
         case C4     = 261.63
         case Db4    = 277.18
         case D4     = 293.66
@@ -32,33 +44,59 @@ public final class Buzzer {
         
         public var description: String {
             switch self {
+            case .C3:
+                return "C₃"
+            case .Db3:
+                return "C♯₃/D♭₃"
+            case .D3:
+                return "D₃"
+            case .Eb3:
+                return "D♯₃/E♭₃"
+            case .E3:
+                return "E₃"
+            case .F3:
+                return "F₃"
+            case .Gb3:
+                return "F♯₃/G♭₃"
+            case .G3:
+                return "G₃"
+            case .Ab3:
+                return "G♯₃/A♭₃"
+            case .A3:
+                return "A₃"
+            case .Bb3:
+                return "A♯₃/B♭₃"
+            case .B3:
+                return "B₃"
             case .C4:
-                return "C4"
+                return "C₄"
             case .Db4:
-                return "C♯4/D♭4"
+                return "C♯₄/D♭₄"
             case .D4:
-                return "D4"
+                return "D₄"
             case .Eb4:
-                return "D♯4/E♭4"
+                return "D♯₄/E♭₄"
             case .E4:
-                return "E4"
+                return "E₄"
             case .F4:
-                return "F4"
+                return "F₄"
             case .Gb4:
-                return "F♯4/G♭4"
+                return "F♯₄/G♭₄"
             case .G4:
-                return "G4"
+                return "G₄"
             case .Ab4:
-                return "G♯4/A♭4"
+                return "G♯₄/A♭₄"
             case .A4:
-                return "A4"
+                return "A₄"
             case .Bb4:
-                return "A♯4/B♭4"
+                return "A♯₄/B♭₄"
             case .B4:
-                return "B4"
+                return "B₄"
             }
         }
     }
+    
+    public var volume: Float = 1.0
     
     private static let Samples = 44100
     
@@ -92,8 +130,7 @@ public final class Buzzer {
             var j = buzzer.startingFrameCount
             let cycleLength = Float(Buzzer.Samples) / buzzer.frequency.rawValue
             for frame in 0..<Int(inNumberFrames) {
-                let value = sin(2.0 * Float.pi * (j / cycleLength))
-                data[frame] = value
+                data[frame] = buzzer.volume * sin(2.0 * Float.pi * (j / cycleLength))
                 
                 j += 1.0
                 if j > cycleLength {

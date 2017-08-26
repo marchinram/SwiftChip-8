@@ -12,7 +12,10 @@ class SettingsViewController: UITableViewController {
 
     private var buzzer: Buzzer?
     
-    private let notes = [Buzzer.Frequency.C4, Buzzer.Frequency.Db4, Buzzer.Frequency.D4, Buzzer.Frequency.Eb4,
+    private let notes = [Buzzer.Frequency.C3, Buzzer.Frequency.Db3, Buzzer.Frequency.D3, Buzzer.Frequency.Eb3,
+                         Buzzer.Frequency.E3, Buzzer.Frequency.F3, Buzzer.Frequency.Gb3, Buzzer.Frequency.G3,
+                         Buzzer.Frequency.Ab3, Buzzer.Frequency.A3, Buzzer.Frequency.Bb3, Buzzer.Frequency.B3,
+                         Buzzer.Frequency.C4, Buzzer.Frequency.Db4, Buzzer.Frequency.D4, Buzzer.Frequency.Eb4,
                          Buzzer.Frequency.E4, Buzzer.Frequency.F4, Buzzer.Frequency.Gb4, Buzzer.Frequency.G4,
                          Buzzer.Frequency.Ab4, Buzzer.Frequency.A4, Buzzer.Frequency.Bb4, Buzzer.Frequency.B4]
     
@@ -22,11 +25,14 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var buzzerPreviewLabel: UILabel!
     
+    @IBOutlet weak var buzzerVolumeSlider: UISlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buzzerStepper.value = Double(notes.index(of: SettingsManager.instance.buzzerNote) ?? 1)
+        buzzerStepper.value = Double(notes.index(of: SettingsManager.instance.buzzerNote) ?? 0)
         buzzerNoteLabel.text = SettingsManager.instance.buzzerNote.description
+        buzzerVolumeSlider.value = SettingsManager.instance.buzzerVolume
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,6 +83,11 @@ class SettingsViewController: UITableViewController {
             stopPreview()
             startPreview()
         }
+    }
+    
+    @IBAction func didChangeBuzzerVolume(_ sender: UISlider) {
+        SettingsManager.instance.buzzerVolume = sender.value
+        buzzer?.volume = SettingsManager.instance.buzzerVolume
     }
     
     @IBAction func didPressClose(_ sender: Any) {
