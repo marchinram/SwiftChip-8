@@ -24,6 +24,10 @@ class GameViewController: UIViewController {
     
     fileprivate var colorEffect = GLKBaseEffect()
     
+    private var secondWindow: UIWindow?
+    
+    private var secondGameView: GLKView?
+    
     @IBOutlet weak var gameView: GLKView!
 
     @IBOutlet var buttons: [UIButton]!
@@ -43,12 +47,20 @@ class GameViewController: UIViewController {
         setupGL()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if UIScreen.screens.count > 1 {
+            setupSecondScreen()
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIScreenDidConnect, object: nil, queue: OperationQueue.main) { _ in
+            self.setupSecondScreen()
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIScreenDidDisconnect, object: nil, queue: OperationQueue.main) { _ in
+            self.removeSecondScreen()
+        }
         
         if displayLink == nil {
             displayLink = CADisplayLink(target: self, selector: #selector(redraw(displayLink:)))
@@ -59,6 +71,12 @@ class GameViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         displayLink?.remove(from: .main, forMode: .defaultRunLoopMode)
+        
+        if UIScreen.screens.count > 1 {
+            removeSecondScreen()
+        }
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     @IBAction func didPressButton(_ sender: UIButton) {
@@ -75,7 +93,12 @@ class GameViewController: UIViewController {
         } catch {
             alert(error: error)
         }
+        
         gameView.display()
+        
+        if let secondGameView = secondGameView {
+            secondGameView.display()
+        }
     }
     
     @objc private func adjustSpeed(sender: UISlider) {
@@ -164,6 +187,38 @@ class GameViewController: UIViewController {
         glVertexAttribPointer(GLuint(GLKVertexAttrib.position.rawValue), 2, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 0, nil)
         
         gameView.context = context
+    }
+    
+    private func setupSecondScreen() {
+        guard secondWindow == nil && secondGameView == nil else {
+            return
+        }
+        
+        let secondScreen = UIScreen.screens[1]
+        
+        secondWindow = UIWindow(frame: secondScreen.bounds)
+        guard let secondWindow = secondWindow else {
+            return
+        }
+        
+        secondWindow.screen = secondScreen
+        
+        secondGameView = GLKView(frame: secondWindow.bounds, context: gameView.context)
+        guard let secondGameView = secondGameView else {
+            return
+        }
+        
+        secondGameView.delegate = self
+        secondWindow.addSubview(secondGameView)
+        
+        secondWindow.isHidden = false
+    }
+    
+    private func removeSecondScreen() {
+        secondGameView?.removeFromSuperview()
+        secondGameView = nil
+        secondWindow?.isHidden = true
+        secondWindow = nil
     }
     
     fileprivate func alert(error: Error) {
