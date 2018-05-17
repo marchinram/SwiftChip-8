@@ -152,14 +152,15 @@ class GameViewController: UIViewController {
     }
     
     private func setupSpeedSlider() {
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 34))
+        toolbarItems?.append(UIBarButtonItem(customView: containerView))
+        
         let speedSlider = UISlider()
-        speedSlider.translatesAutoresizingMaskIntoConstraints = false
         speedSlider.minimumValue = 1
         speedSlider.maximumValue = 30
         speedSlider.value = Float(Chip8.DefaultSpeed)
         speedSlider.addTarget(self, action: #selector(adjustSpeed(sender:)), for: .valueChanged)
-        let speedItem = UIBarButtonItem(customView: speedSlider)
-        toolbarItems?.append(speedItem)
+        containerView.addSubview(speedSlider)
     }
     
     private func setupGL() {
