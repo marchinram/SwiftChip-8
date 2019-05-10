@@ -30,7 +30,7 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buzzerStepper.value = Double(notes.index(of: SettingsManager.instance.buzzerNote) ?? 0)
+        buzzerStepper.value = Double(notes.firstIndex(of: SettingsManager.instance.buzzerNote) ?? 0)
         buzzerNoteLabel.text = SettingsManager.instance.buzzerNote.description
         buzzerVolumeSlider.value = SettingsManager.instance.buzzerVolume
     }

@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GameSegue" {
             let gameVC = segue.destination as! GameViewController
-            gameVC.game = sender as! URL
+            gameVC.game = sender as? URL
             let backBarButtonItem = UIBarButtonItem(title: "Quit", style: .done, target: self, action: #selector(quit))
             navigationItem.backBarButtonItem = backBarButtonItem
         }

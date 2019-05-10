@@ -54,23 +54,23 @@ class GameViewController: UIViewController {
             setupSecondScreen()
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIScreenDidConnect, object: nil, queue: OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName: UIScreen.didConnectNotification, object: nil, queue: OperationQueue.main) { _ in
             self.setupSecondScreen()
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIScreenDidDisconnect, object: nil, queue: OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName: UIScreen.didDisconnectNotification, object: nil, queue: OperationQueue.main) { _ in
             self.removeSecondScreen()
         }
         
         if displayLink == nil {
             displayLink = CADisplayLink(target: self, selector: #selector(redraw(displayLink:)))
-            displayLink?.add(to: .main, forMode: .defaultRunLoopMode)
+            displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        displayLink?.remove(from: .main, forMode: .defaultRunLoopMode)
+        displayLink?.remove(from: .main, forMode: RunLoop.Mode.default)
         
         if UIScreen.screens.count > 1 {
             removeSecondScreen()
